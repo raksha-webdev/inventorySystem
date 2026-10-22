@@ -17,4 +17,11 @@ class customer extends Model
         'pin_code',
         'is_deleted',
     ];
+
+
+    public function sales()
+{
+    return $this->hasMany(SalesMaster::class, 'customer_id');
+}
+
 }

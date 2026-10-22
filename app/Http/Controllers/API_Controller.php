@@ -15,11 +15,14 @@ use Illuminate\Support\Facades\DB;
 
 class API_Controller extends Controller
 {
+
+
+
     public function get_category()
     {
        $cat_data=category::all();
        return response([
-        'status'=>200,
+        'status'=>true,
         'category'=>$cat_data,
         'msg'=>'Category Data Fetched Successfully',
        ]);
@@ -27,57 +30,91 @@ class API_Controller extends Controller
 
 
     public function add_category(Request $request)
-    {
-        $request->validate([
-            'cat_name'=>'required',
-            'cat_img'=>'required',
-            'status'=>'required',
-            'category_id'=>'nullable',
-        ]);
-        if($request->category_id)
-        {
-            $cat_all_data=category::where('id',$request->category_id)->first();
-            if($request->cat_img)
-            {
-                $cat_img= saveImgFile($request->cat_img,'assests/category_img/');
-                $oldImage = public_path('assests/category_img/'.$cat_all_data->cat_img);
+{
+    // Validation
+    $request->validate([
+        'cat_name'   => 'required|string|max:255',
+        'cat_img'    => $request->category_id
+                        ? 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048'
+                        : 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        'status'     => 'required|in:0,1',
+        'category_id'=> 'nullable|integer',
+    ]);
 
-                if(file_exists($oldImage))
-                {
+    // =====================================================
+    // UPDATE CATEGORY
+    // =====================================================
+
+    if ($request->category_id) {
+
+        $category = Category::find($request->category_id);
+
+        // Category ID doesn't exist
+        if (!$category) {
+            return response()->json([
+                'status' => false,
+                'msg'    => 'Category not found',
+            ], 404);
+        }
+
+        // Keep old image by default
+        $cat_img = $category->cat_img;
+
+        // If new image is uploaded
+        if ($request->hasFile('cat_img')) {
+
+            $cat_img = saveImgFile(
+                $request->file('cat_img'),
+                'assests/category_img/'
+            );
+
+            // Delete old image
+            if ($category->cat_img) {
+
+                $oldImage = public_path(
+                    'assests/category_img/' . $category->cat_img
+                );
+
+                if (file_exists($oldImage)) {
                     unlink($oldImage);
                 }
             }
-           else{
-               $cat_img= $cat_all_data->cat_img;
-           }
-
-        $cat_all_data->update([
-                'cat_name'=>$request->cat_name,  
-                'cat_img'=>$cat_img,  
-                'status'=>$request->status,  
-               ]);
-   
-                 return response([
-                     'status'=>200,
-                     'msg'=>'Category Updated Successfully',
-                    ]);
         }
-        else{
-            $cat_img= saveImgFile($request->cat_img,'assests/category_img/');
 
-            category::create([
-             'cat_name'=>$request->cat_name,  
-             'cat_img'=>$cat_img,  
-             'status'=>$request->status,  
-            ]);
-      
-              return response([
-                  'status'=>200,
-                  'msg'=>'Category Added Successfully',
-                 ]);
-        }
-     
+        // Update category
+        $category->update([
+            'cat_name' => $request->cat_name,
+            'cat_img'  => $cat_img,
+            'status'   => $request->status,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'msg'    => 'Category Updated Successfully',
+        ], 200);
     }
+
+
+    // =====================================================
+    // ADD NEW CATEGORY
+    // =====================================================
+
+    $cat_img = saveImgFile(
+        $request->file('cat_img'),
+        'assests/category_img/'
+    );
+
+    Category::create([
+        'cat_name' => $request->cat_name,
+        'cat_img'  => $cat_img,
+        'status'   => $request->status,
+    ]);
+
+    return response()->json([
+        'status' => true,
+        'msg'    => 'Category Added Successfully',
+    ], 200);
+}
 
     public function category_delete(Request $request)
     {
@@ -270,7 +307,7 @@ class API_Controller extends Controller
             'msg'=>'Customer Data Fetched Successfully',
             ]);
     }
-
+  
     public function customers_detail(Request $request){
         $request->validate([
             'customer_id'=>'required',
@@ -661,6 +698,12 @@ public function add_purchase(Request $request)
             'line' => $e->getLine(),
         ], 500);
     }
+}
+
+ 
+public function get_purchases(Request $request)
+{
+    $purchases = purchase_items::where('id');
 }
 
 }

@@ -23,4 +23,17 @@ class purchase extends Model
         'payment_status',
         'remarks',
     ];
+
+    
+public function supplier()
+{
+    return $this->belongsTo(Supplier::class, 'supplier_id');
+
+}
+
+// Purchase has many Purchase Items
+public function items()
+{
+    return $this->hasMany(purchase_items::class, 'purchase_id');
+}
 }
