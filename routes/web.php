@@ -85,19 +85,28 @@ Route::get('branddata/',[AdminController::class, 'branddata']);
 // Route::post('/customers_detail', [API_Controller::class, 'customers_detail']);
 // Route::post('/delete_customer', [API_Controller::class, 'delete_customer']);
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
-Route::get('/check-db-host', function () {
+Route::get('/check-db-connection', function () {
 
-    $host = env('DB_HOST');
+    try {
 
-    $ip = gethostbyname($host);
+        DB::connection()->getPdo();
 
-    return response()->json([
-        'host' => $host,
-        'resolved_ip' => $ip,
-        'dns_status' => ($host == $ip)
-            ? 'DNS FAILED'
-            : 'DNS SUCCESS'
-    ]);
+        return response()->json([
+            'status' => 'SUCCESS',
+            'message' => 'MySQL database connected successfully!'
+        ]);
+
+    } catch (\Throwable $e) {
+
+        Log::error('Database Connection Test Failed: ' . $e->getMessage());
+
+        return response()->json([
+            'status' => 'FAILED',
+            'message' => 'Database connection failed. Check Render logs.'
+        ], 500);
+    }
 
 });
