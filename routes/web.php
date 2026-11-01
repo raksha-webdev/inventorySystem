@@ -85,8 +85,7 @@ Route::get('branddata/',[AdminController::class, 'branddata']);
 // Route::post('/customers_detail', [API_Controller::class, 'customers_detail']);
 // Route::post('/delete_customer', [API_Controller::class, 'delete_customer']);
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+
 
 Route::get('/check-db-connection', function () {
 
