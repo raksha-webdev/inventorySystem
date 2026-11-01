@@ -713,26 +713,23 @@ public function get_purchases($purchase_id = null)
         ->orderBy('id', 'desc')
         ->get();
 
-    // Get suppliers for dropdown
-    $supplier_data = Supplier::where('status', 1)
-        ->get();
+    // Get suppliers
+    $supplier_data = Supplier::where('status', 1)->get();
 
-    // Get products for dropdown
-    $product_data = Product::where('status', 1)
-        ->get();
+    // Get products
+    $product_data = product::where('status', 1)->get();
 
     // For edit
     $purchase_data_single = null;
 
     if ($purchase_id) {
 
-        $purchase_data_single = Purchase::with('items')
+        $purchase_data_single = purchase::with('items')
             ->where('id', $purchase_id)
             ->where('is_deleted', '0')
             ->first();
 
         if (!$purchase_data_single) {
-
             return redirect()
                 ->route('get_purchases')
                 ->with('error', 'Purchase Not Found');
@@ -758,7 +755,7 @@ public function add_update_purchase(Request $request, $purchase_id = null)
 
     if ($purchase_id) {
 
-        $purchase = Purchase::where('id', $purchase_id)
+        $purchase = purchase::where('id', $purchase_id)
             ->where('is_deleted', '0')
             ->first();
 
@@ -884,7 +881,7 @@ public function add_update_purchase(Request $request, $purchase_id = null)
             foreach ($oldItems as $oldItem) {
 
                 $oldProduct =
-                    Product::find($oldItem->product_id);
+                    product::find($oldItem->product_id);
 
                 if ($oldProduct) {
 
@@ -984,7 +981,7 @@ public function add_update_purchase(Request $request, $purchase_id = null)
                 // Increase New Stock
 
                 $product =
-                    Product::findOrFail(
+                    product::findOrFail(
                         $item['product_id']
                     );
 
@@ -1079,7 +1076,7 @@ public function add_update_purchase(Request $request, $purchase_id = null)
         // =====================================
 
         $lastPurchase =
-            Purchase::latest('id')->first();
+            purchase::latest('id')->first();
 
         $number =
             $lastPurchase
@@ -1154,7 +1151,7 @@ public function add_update_purchase(Request $request, $purchase_id = null)
         // Save Purchase
         // =====================================
 
-        $purchase = Purchase::create([
+        $purchase = purchase::create([
 
             'supplier_id' =>
                 $request->supplier_id,
