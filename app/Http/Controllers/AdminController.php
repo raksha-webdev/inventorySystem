@@ -63,16 +63,12 @@ class AdminController extends Controller
     
         $request->validate([
             'cat_name' => 'required|string|max:255',
-    
             'cat_img' =>  'nullable',
-    
             'status' => 'required|in:0,1',
         ]);
     
         if ($cat_id) {
-    
             $category = Category::find($cat_id);
-    
             if (!$category) {
                 return redirect()->back()
                     ->with('error', 'Category not found');

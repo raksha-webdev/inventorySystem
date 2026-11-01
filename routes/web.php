@@ -84,3 +84,20 @@ Route::get('branddata/',[AdminController::class, 'branddata']);
 // Route::post('/get_customers', [API_Controller::class, 'get_customers']);
 // Route::post('/customers_detail', [API_Controller::class, 'customers_detail']);
 // Route::post('/delete_customer', [API_Controller::class, 'delete_customer']);
+
+
+Route::get('/check-db-host', function () {
+
+    $host = env('DB_HOST');
+
+    $ip = gethostbyname($host);
+
+    return response()->json([
+        'host' => $host,
+        'resolved_ip' => $ip,
+        'dns_status' => ($host == $ip)
+            ? 'DNS FAILED'
+            : 'DNS SUCCESS'
+    ]);
+
+});
