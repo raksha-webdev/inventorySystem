@@ -12,7 +12,7 @@ use App\Models\SalesMaster;
 use App\Models\SalesProductListMaster;
 use App\Models\stock_log_master;
 use App\Models\subcategory;
-use App\Models\supplier;
+use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +32,7 @@ class AdminController extends Controller
     public function dashboard(){
         $catgory_count = Category::count();
         $sub_category_count = subcategory::count();
-        $supplier = supplier::count();
+        $supplier = Supplier::count();
         $product = product::count();
         $user = User::count();
         return view('index',compact('catgory_count','sub_category_count','user','product','supplier'));
@@ -451,7 +451,7 @@ public function add_updateSupplier(Request $request,$supplier_id = null)
         . rand(1000, 9999);
 
 
-        supplier::create([
+        Supplier::create([
 
         'supplier_name' => $request->supplier_name,
         'email' => $request->email,
@@ -483,7 +483,7 @@ public function add_updateSupplier(Request $request,$supplier_id = null)
 
 public function delete_supplier($id)
 {
-    $supplier_data = supplier::where('id', $id)->first();
+    $supplier_data =Supplier::where('id', $id)->first();
 
     if (!$supplier_data) {
 
@@ -504,7 +504,7 @@ public function delete_supplier($id)
 
 public function supplier_detail($id)
 {
-    $supplier_data = supplier::where('id', $id)->first();
+    $supplier_data = Supplier::where('id', $id)->first();
 
     if (!$supplier_data) {
 
@@ -714,7 +714,7 @@ public function get_purchases($purchase_id = null)
         ->get();
 
     // Get suppliers for dropdown
-    $supplier_data = supplier::where('status', 1)
+    $supplier_data = Supplier::where('status', 1)
         ->get();
 
     // Get products for dropdown
@@ -1396,7 +1396,7 @@ public function purchase_invoice($purchase_id = '')
     // SUPPLIER DETAILS
     // ==========================================
 
-    $supplier_detail = supplier::where(
+    $supplier_detail = Supplier::where(
         'id',
         $purchase_detail->supplier_id
     )->first();
@@ -1708,7 +1708,7 @@ public function get_products($id = null)
     $cat_data = category::where('status', 1)->get();
 
     // Supplier
-    $supplier_data = supplier::where('status', 1)->get();
+    $supplier_data = Supplier::where('status', 1)->get();
 
     // Brand
     $brand_data = brandmaster::where('status', 1)->get();
