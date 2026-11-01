@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Models;
@@ -7,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class purchase_items extends Model
 {
     protected $table = 'purchase_items';
+
     public $timestamps = true;
-    public $fillable=[
+
+    protected $fillable = [
         'purchase_id',
         'product_id',
         'quantity',
@@ -16,16 +19,13 @@ class purchase_items extends Model
         'subtotal'
     ];
 
-
     public function purchase()
-{
-    return $this->belongsTo(Purchase::class);
-}
+    {
+        return $this->belongsTo(purchase::class, 'purchase_id');
+    }
 
-public function product()
-{
-    return $this->belongsTo(Product::class);
-}
-
-
+    public function product()
+    {
+        return $this->belongsTo(product::class, 'product_id');
+    }
 }
