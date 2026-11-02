@@ -142,28 +142,44 @@
 
                 <div class="supplier-header">
 
-                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
 
-                        <div>
-                            <h4>
-                                <i class="fa fa-building mr-2"></i>
-                                Supplier Details
-                            </h4>
+<div>
+    <h4>
+        <i class="fa fa-building mr-2"></i>
+        Supplier Details
+    </h4>
 
-                            <p>
-                                Complete information about this supplier
-                            </p>
-                        </div>
+    <p>Complete information about this supplier</p>
+</div>
 
-                        <div>
-                            <span class="supplier-code">
-                                Supplier Code:
-                                {{ $supplier_data->supplier_code ?? 'N/A' }}
-                            </span>
-                        </div>
+<div class="d-flex align-items-center flex-wrap" style="gap:10px;">
 
-                    </div>
+    <span class="supplier-code">
+        Supplier Code:
+        {{ $supplier_data->supplier_code ?? 'N/A' }}
+    </span>
 
+    <a href="{{ url('supplierList') }}"
+   style="
+       display: inline-block !important;
+       background: #ffc107 !important;
+       color: #000 !important;
+       padding: 9px 18px !important;
+       border-radius: 6px;
+       text-decoration: none !important;
+       font-weight: 600;
+       position: relative;
+       z-index: 10;
+       visibility: visible !important;
+       opacity: 1 !important;
+   ">
+    <i class="fa fa-arrow-left"></i> Back
+</a>
+
+</div>
+
+</div>
                 </div>
 
 
