@@ -96,4 +96,21 @@
 }
 
 
+
+// if (!function_exists('changeStatus')) {
+
+//     function changeStatus($model, $column = 'status')
+//     {
+//         if ((int) $model->$column === 1) {
+//             $model->$column = 0;
+//         } else {
+//             $model->$column = 1;
+//         }
+//         $model->save();
+//         return $model;
+//     }
+// }
+
+
+
 ?>

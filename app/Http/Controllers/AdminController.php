@@ -29,14 +29,53 @@ class AdminController extends Controller
     return commonDelete($tableName, $columnName, $value);
 }
 
-    public function dashboard(){
-        $catgory_count = Category::count();
-        $sub_category_count = subcategory::count();
-        $supplier = Supplier::count();
-        $product = product::count();
-        $user = User::count();
-        return view('index',compact('catgory_count','sub_category_count','user','product','supplier'));
-    }
+public function dashboard()
+{
+    $catgory_count = Category::count();
+
+    $sub_category_count = subcategory::count();
+
+    $supplier = Supplier::count();
+
+    $product = product::count();
+
+    $user = User::count();
+
+    // Total Completed / Active Sales Count
+    $sale = SalesMaster::where('status', 1)->count();
+
+    // Total Sales Amount
+    $sale_amt = SalesMaster::where('status', 1)
+        ->sum('grand_total');
+
+    // Total Purchase Count
+    $purchase = purchase::count();
+
+    // Total Purchase Amount
+    $purchase_amt = purchase::sum('grand_total');
+
+    // Low Stock Products
+    $low_stock = product::whereColumn(
+        'stock_quantity', '<=','minimum_stock'
+    )->where('status', 1)->count();
+
+
+    $total_product=product::where('status', 1)->count();
+
+    return view('index', compact(
+        'catgory_count',
+        'sub_category_count',
+        'user',
+        'product',
+        'supplier',
+        'sale',
+        'sale_amt',
+        'purchase',
+        'purchase_amt',
+        'low_stock',
+        'total_product',
+    ));
+}
 
     public function categorydata($id = null)
     {
@@ -383,14 +422,14 @@ public function add_updateSupplier(Request $request,$supplier_id = null)
         'supplier_name' => 'required',
         'email' => 'required|email',
         'contact_person' => 'nullable',
-        'phone' => 'required',
+        'phone' => 'required|digits:10',
         'address' => 'required',
         'city' => 'required',
         'state' => 'required',
         'pin_code' => 'required',
         'status' => 'required|boolean',
 
-        'alternate_phone' => 'nullable',
+        'alternate_phone' => 'nullable|digits:10',
         'website' => 'nullable',
         'notes' => 'nullable',
         'gst_number' => 'nullable',
@@ -398,12 +437,10 @@ public function add_updateSupplier(Request $request,$supplier_id = null)
     ]);
 
     if ($validator->fails()) {
-
         return redirect()->back()
             ->withErrors($validator)
             ->withInput();
     }
-
 
     // ================= UPDATE =================
 
@@ -2624,24 +2661,22 @@ public function cancel_sale($table, $id)
             'success',
             'Sale cancelled and stock restored successfully. Refund is pending.'
         );
-
     } catch (\Exception $e) {
-
         return redirect()->back()->with('error', $e->getMessage());
     }
 }
 
-
 public function view_refund($refund_id)
 {
-    $refund_record=sale_refunds::where('id',$refund_id)->first();
-    $sale_id=$refund_record->sale_id;
+    $refund = sale_refunds::with('sale.items.product')
+        ->where('id', $refund_id)
+        ->firstOrFail();
 
-    $sale = SalesMaster::with('saleProductListMaster.product')
-        ->findOrFail($sale_id);
+    $sale = $refund->sale;
 
-    return view('refund_detail', compact('refund_record','sale'));
+    return view('refund_detail', compact('refund', 'sale'));
 }
+
 
 
  }

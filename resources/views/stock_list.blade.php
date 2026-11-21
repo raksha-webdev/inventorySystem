@@ -3,6 +3,51 @@
 
 @section('content')
 
+<style>
+    .switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 23px;
+    margin: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #dc3545;
+    transition: 0.3s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+    background-color: #198754;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(22px);
+}
+</style>
+
 <div class="main-body">
     <div class="page-wrapper">
 
@@ -171,19 +216,15 @@
                                 <div class="form-group row">
 
                                     <label class="col-sm-2 col-form-label">
-
-                                        Product
-
+                                        Product <span class="text-danger">*</span>
                                     </label>
 
 
                                     <div class="col-sm-10">
-
                                         <select
                                             name="product_id"
                                             class="form-control"
-                                            required
-                                        >
+                                            required>
 
                                             <option value="">
                                                 Select Product
@@ -217,21 +258,14 @@
                                 <!-- TRANSACTION TYPE -->
 
                                 <div class="form-group row">
-
                                     <label class="col-sm-2 col-form-label">
-
-                                        Transaction Type
-
+                                        Transaction Type <span class="text-danger">*</span>
                                     </label>
-
-
                                     <div class="col-sm-10">
-
                                         <select
                                             name="transaction_type"
                                             class="form-control"
-                                            required
-                                        >
+                                            required >
 
                                             <option value="">
                                                 Select Transaction Type
@@ -250,11 +284,8 @@
                                             >
                                                 Decrease
                                             </option>
-
                                         </select>
-
                                     </div>
-
                                 </div>
 
 
@@ -263,10 +294,8 @@
                                 <div class="form-group row">
 
                                     <label class="col-sm-2 col-form-label">
-                                        Quantity
+                                        Quantity  <span class="text-danger">*</span>
                                     </label>
-
-
                                     <div class="col-sm-10">
 
                                         <input
@@ -278,25 +307,18 @@
                                             min="1"
                                             required
                                         >
-
                                     </div>
-
                                 </div>
 
 
                                 <!-- REASON -->
-
                                 <div class="form-group row">
-
                                     <label class="col-sm-2 col-form-label">
-
-                                        Reason
-
+                                        Reason <span class="text-danger">*</span>
                                     </label>
 
 
                                     <div class="col-sm-10">
-
                                         <textarea
                                             name="reason"
                                             class="form-control"
@@ -315,60 +337,29 @@
                                 <div class="form-group row">
 
                                     <label class="col-sm-2 col-form-label">
-
-                                        Status
-
+                                        Status <span class="text-danger">*</span>
                                     </label>
-
-
                                     <div class="col-sm-10">
-
-                                        <select
-                                            name="status"
-                                            class="form-control"
-                                            required
-                                        >
-
+                                        <select name="status" class="form-control" required>
                                             <option value="">
                                                 Select Status
                                             </option>
-
-                                            <option
-                                                value="1"
-                                                {{ old('status') == '1' ? 'selected' : '' }}
-                                            >
+                                            <option  value="1"  {{ old('status') == '1' ? 'selected' : '' }}>
                                                 Active
                                             </option>
 
-                                            <option
-                                                value="0"
-                                                {{ old('status') == '0' ? 'selected' : '' }}
-                                            >
-                                                Deactive
-                                            </option>
-
+                                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}> Deactive </option>
                                         </select>
-
                                     </div>
-
                                 </div>
-
 
                                 <!-- SUBMIT -->
 
                                 <div class="form-group row">
-
                                     <div class="col-sm-10 offset-sm-2">
-
-                                        <button
-                                            type="submit"
-                                            class="btn btn-primary"
-                                        >
-
+                                        <button type="submit" class="btn btn-primary">
                                             <i class="fa fa-save"></i>
-
                                             Submit
-
                                         </button>
 
                                     </div>
@@ -483,29 +474,21 @@
                                                 {{ $key + 1 }}
 
                                             </td> -->
-
-
                                             <!-- ID -->
 
                                             <td>
-
                                                 {{ $stock->id }}
-
                                             </td>
 
 
                                             <!-- PRODUCT -->
 
                                             <td>
-
                                {{ $stock->product->product_name ?? 'N/A' }}
                                             </td>
-
-
                                             <!-- TRANSACTION TYPE -->
 
                                             <td>
-
                                                 @if($stock->transaction_type == 'increase')
                                                     <span class="status-badge status-active">
                                                         <i class="fa fa-plus-circle"></i>
@@ -517,7 +500,6 @@
                                                         Decrease
                                                     </span>
                                                 @endif
-
                                             </td>
 
 
@@ -541,30 +523,20 @@
 
                                             <!-- STATUS -->
 
-                                            <td> 
-                                                @if($stock->status == 'active')
+                                            <td>
+    <label class="switch">
+        <input type="checkbox"
+            {{ $stock->status == 'active' ? 'checked' : '' }}
+            onchange="active_deactive_status(
+                {{ $stock->id }},
+                'stock_log_master',
+                'status',
+                this.checked ? 'active' : 'deactive'
+            )">
 
-                                                    <span class="status-badge status-active">
-
-                                                        <i class="fa fa-circle"></i>
-
-                                                        Active
-
-                                                    </span>
-
-                                                @else
-
-                                                    <span class="status-badge status-inactive">
-
-                                                        <i class="fa fa-circle"></i>
-
-                                                        Deactive
-
-                                                    </span>
-
-                                                @endif
-
-                                            </td>
+        <span class="slider"></span>
+    </label>
+</td>
 
 
                                             <!-- CREATED -->
@@ -624,4 +596,19 @@
 
 </div>
 
+
+<script>
+    function active_deactive_status(id, table, column, status) {
+
+if (confirm('Are you sure you want to change the status?')) {
+
+    window.location.href =
+        "{{ url('active_deactive_status') }}/" +
+        id + "/" + table + "/" + column + "/" + status;
+
+} else {
+    location.reload();
+}
+}
+</script>
 @endsection

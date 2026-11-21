@@ -200,27 +200,6 @@
         white-space: nowrap;
     }
 
-    .action-btn {
-        width: 34px;
-        height: 34px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-        text-decoration: none;
-        margin-right: 4px;
-    }
-
-    .edit-btn {
-        background: #ffc107;
-        color: #000;
-    }
-
-    .delete-btn {
-        background: #dc3545;
-        color: #fff;
-    }
-
     @media(max-width: 768px) {
 
         .purchase-header {
@@ -235,6 +214,74 @@
 
     }
 
+    /* Purchase Action Buttons */
+.purchase-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.purchase-action-btn {
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    text-decoration: none !important;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Bill Button */
+.purchase-action-btn.bill-btn {
+    width: auto;
+    padding: 0 11px;
+    gap: 6px;
+    background: #e8f1ff;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Edit Button */
+.purchase-action-btn.edit-btn {
+    background:#99f0cc;
+    color: #d69e00;
+}
+
+.purchase-action-btn.edit-btn i {
+    color: white;
+}
+
+/* Delete Button */
+.purchase-action-btn.delete-btn {
+    background: #ffe8e8;
+    color: #dc3545;
+}
+
+/* Hover Effects */
+.purchase-action-btn.bill-btn:hover {
+    background: #2563eb;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.purchase-action-btn.edit-btn:hover {
+    background:#59d3a1;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.purchase-action-btn.delete-btn:hover {
+    background: #dc3545;
+    color: #fff;
+    transform: translateY(-2px);
+}
 </style>
 
 
@@ -830,11 +877,7 @@
                     <input type="number"
                            name="discount"
                            id="discount"
-                           class="form-control"
-
-                           min="0"
-                           step="0.01"
-
+                           class="form-control" min="0" step="0.01"
                            value="{{ old(
                                'discount',
                                isset($purchase_data_single)
@@ -926,9 +969,7 @@
                                    ? $purchase_data_single->paid_amount
                                    : 0
                            ) }}"
-
                            oninput="calculateDueAmount()"
-
                            required>
 
                 </div>
@@ -1285,59 +1326,46 @@
                             </td>
 
                             <td>
+    <div class="purchase-actions">
 
-                            <a href="{{ url('purchase_invoice/' . $purchase->id) }}"
-                                   class="btn btn-primary"
-                                   title="Edit Purchase">
-                              Bill
-                                </a>
+        <!-- Bill Button -->
+        <a href="{{ url('purchase_invoice/'.$purchase->id) }}"
+           class="purchase-action-btn bill-btn"
+           title="View Purchase Bill">
+            <i class="fa fa-file-invoice"></i>
+            <span>Bill</span>
+        </a>
 
-                                <a href="{{ url('get_purchases/' . $purchase->id) }}"
-                                   class="action-btn edit-btn"
-                                   title="Edit Purchase">
+        <!-- Edit Button -->
+        <a href="{{ url('get_purchases/'.$purchase->id) }}"
+           class="purchase-action-btn edit-btn"
+           title="Edit Purchase">
+            <i class="fa fa-pencil"></i>
+        </a>
 
-                                    <i class="fa fa-pencil"></i>
-
-                                </a>
-
-
-                                <a href="{{ url('delete-record/purchase/id/' . $purchase->id) }}"
-                                   class="action-btn delete-btn"
-                                   title="Delete Purchase"
-
-                                   onclick="return confirm('Are you sure you want to delete this purchase?')">
-
-                                    <i class="fa fa-trash"></i>
-
-                                </a>
-
-                            </td>
-
-                        </tr>
-
-                    @empty
-
-                        <tr>
-
-                            <td colspan="13"
-                                class="text-center">
-
-                                No Purchase Found
-
-                            </td>
-
-                        </tr>
-
-                    @endforelse
-
-                </tbody>
-
-            </table>
-
-        </div>
+        <!-- Delete Button -->
+        <a href="{{ url('delete-record/purchase/id/'.$purchase->id) }}"
+           class="purchase-action-btn delete-btn"
+           title="Delete Purchase"
+           onclick="return confirm('Are you sure you want to delete this purchase?')">
+            <i class="fa fa-trash"></i>
+        </a>
 
     </div>
-
+</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="13"
+                                class="text-center">
+                                No Purchase Found
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 

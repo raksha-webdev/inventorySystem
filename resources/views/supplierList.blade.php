@@ -64,6 +64,69 @@
     .supplier-form-body {
         padding: 20px;
     }
+
+    /* Supplier Action Buttons */
+
+.supplier-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.action-btn {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    text-decoration: none !important;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+/* Edit */
+.edit-btn {
+    background: #d8a61e;
+    color: #b73c1f;
+    border-color: #f5dfaa;
+}
+
+.edit-btn:hover {
+    background: #f3c969;
+    color: #fff;
+}
+
+/* View */
+.view-btn {
+    background: #d0480f;
+    color: #fff;
+    border-color: #cce5fa;
+}
+
+.view-btn:hover {
+    background: #1672b8;
+    color: #fff;
+}
+
+/* Delete */
+.delete-btn {
+    background: #ffebeb;
+    color: #dc3545;
+    border-color: #f5cccc;
+}
+
+.delete-btn:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+}
 </style>
 
 
@@ -245,7 +308,7 @@
 
                             <label class="form-label">
 
-                                Supplier Code
+                                Supplier Code  <span class="text-danger">*</span>
 
                             </label>
 
@@ -312,9 +375,7 @@
                         <div class="col-md-6 mb-3">
 
                             <label class="form-label">
-
-                                Email
-
+                                Email <span class="text-danger">*</span>
                             </label>
 
                             <input type="email"
@@ -346,7 +407,7 @@
 
                             <label class="form-label">
 
-                                Contact Person
+                                Contact Person 
 
                             </label>
 
@@ -379,7 +440,7 @@
 
                             <label class="form-label">
 
-                                Phone
+                                Phone <span class="text-danger">*</span>
 
                             </label>
 
@@ -391,8 +452,7 @@
                                         isset($supplier_single)
                                         ? $supplier_single->phone
                                         : '') }}"
-                                   placeholder="Enter phone number">
-
+                                   placeholder="Enter phone number" maxlength="10">
                             @error('phone')
 
                                 <span class="text-danger">
@@ -416,7 +476,7 @@
 
                             </label>
 
-                            <input type="text"
+                            <input type="numeric"
                                    name="alternate_phone"
                                    id="alternate_phone"
                                    class="form-control"
@@ -442,11 +502,8 @@
                         <!-- ================= GST NUMBER ================= -->
 
                         <div class="col-md-6 mb-3">
-
                             <label class="form-label">
-
                                 GST Number
-
                             </label>
 
                             <input type="text"
@@ -477,9 +534,7 @@
                         <div class="col-md-6 mb-3">
 
                             <label class="form-label">
-
-                                City
-
+                                City <span class="text-danger">*</span>
                             </label>
 
                             <input type="text"
@@ -510,9 +565,7 @@
                         <div class="col-md-6 mb-3">
 
                             <label class="form-label">
-
-                                State
-
+                                State <span class="text-danger">*</span>
                             </label>
 
                             <input type="text"
@@ -543,9 +596,7 @@
                         <div class="col-md-6 mb-3">
 
                             <label class="form-label">
-
-                                PIN Code
-
+                                PIN Code <span class="text-danger">*</span>
                             </label>
 
                             <input type="text"
@@ -702,16 +753,15 @@
                         <div class="col-md-12 mb-3">
 
                             <label class="form-label">
-
                                 Notes
-
                             </label>
 
                             <textarea name="notes"
                                       id="notes"
                                       class="form-control"
                                       rows="3"
-                                      placeholder="Enter notes">{{ old(
+                                      placeholder="Enter notes">
+                                      {{ old(
                                           'notes',
                                           isset($supplier_single)
                                           ? $supplier_single->notes
@@ -829,6 +879,7 @@
                                 <th>GST Number</th>
                                 <th>City</th>
                                 <th>State</th>
+                                <th>Description</th>
                                 <th>PIN Code</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -885,6 +936,11 @@
                                     </td>
 
                                     <td>
+                                        {{ $supplier->notes ?? '-' }}
+                                    </td>
+
+
+                                    <td>
                                         {{ $supplier->pin_code ?? '-' }}
                                     </td>
 
@@ -907,44 +963,35 @@
                                     </td>
 
                                     <td>
+                                    <div class="supplier-actions">
 
-                                        <div class="d-flex gap-1">
+<!-- EDIT -->
+<button type="button"
+        class="action-btn edit-btn"
+        onclick='editSupplier(@json($supplier))'
+        title="Edit Supplier">
 
-                                            <!-- EDIT -->
+    <i class="fa fa-pencil"></i>
+</button>
 
-                                            <button type="button"
-                                                    class="btn btn-sm btn-warning"
-                                                    onclick='editSupplier(@json($supplier))'
-                                                    title="Edit Supplier">
+<!-- DETAILS -->
+<a href="{{ url('supplier_detail/'.$supplier->id) }}"
+   class="action-btn view-btn"
+   title="View Details">
 
-                                                <i class="fa fa-edit"></i>
+    <i class="fa fa-eye"></i>
+</a>
 
-                                            </button>
+<!-- DELETE -->
+<a href="{{ route('delete_supplier', $supplier->id) }}"
+   class="action-btn delete-btn"
+   title="Delete Supplier"
+   onclick="return confirm('Are you sure you want to delete this supplier?')">
 
+    <i class="fa fa-trash"></i>
+</a>
 
-                                            <!-- DETAILS -->
-
-                                            <a href="{{ url('supplier_detail/'.$supplier->id) }}"
-                                               class="btn btn-sm btn-info"
-                                               title="View Details">
-
-                                                <i class="fa fa-eye"></i>
-
-                                            </a>
-
-
-                                            <!-- DELETE -->
-
-                                            <a href="{{ route('delete_supplier', $supplier->id) }}"
-                                               class="btn btn-sm btn-danger"
-                                               title="Delete Supplier"
-                                               onclick="return confirm('Are you sure you want to delete this supplier?')">
-
-                                                <i class="fa fa-trash"></i>
-
-                                            </a>
-
-                                        </div>
+</div>
 
                                     </td>
 
@@ -1010,7 +1057,9 @@
         */
 
         form.reset();
-
+        if (notesEditor) {
+    notesEditor.setData('');
+}
 
         /*
         |--------------------------------------------------------------------------
@@ -1084,8 +1133,6 @@
 
         formPanel.classList.remove('open');
     }
-
-
     /*
     |--------------------------------------------------------------------------
     | EDIT SUPPLIER
@@ -1115,8 +1162,6 @@
 
         document.getElementById('supplier_id').value =
             supplier.id ?? '';
-
-
         /*
         |--------------------------------------------------------------------------
         | Fill form fields
@@ -1159,8 +1204,12 @@
         document.getElementById('website').value =
             supplier.website ?? '';
 
-        document.getElementById('notes').value =
-            supplier.notes ?? '';
+            if (notesEditor) {
+    notesEditor.setData(supplier.notes ?? '');
+} else {
+    document.getElementById('notes').value =
+        supplier.notes ?? '';
+}
 
         document.getElementById('status').value =
             supplier.status ?? '';

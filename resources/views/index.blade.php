@@ -2,6 +2,111 @@
 @section('content')
                                     <div class="page-body">
                                         <div class="row">
+
+                                        <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                        <span class="text-c-blue f-w-600">Total Sales</span>
+                                                        <h4>{{ $sale }}</h4>
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i><a href="{{ url('get_sales') }}" class="text-muted text-decoration-none">view category</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+
+
+
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                        <span class="text-c-blue f-w-600">Total Revenue</span>
+                                                        <h4>{{ $sale_amt }}</h4>
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i><a href="{{ url('get_sales') }}" class="text-muted text-decoration-none">view category</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                        <span class="text-c-blue f-w-600">Total Purchases</span>
+                                                        <h4>{{ $purchase_amt }}</h4>
+                                                      
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i><a href="{{ url('get_purchases/0') }}" class="text-muted text-decoration-none">view category</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+
+                                            
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                        <span class="text-c-blue f-w-600">Purchase count</span>
+                                                        <h4>{{ $purchase }}</h4>
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i><a href="{{ url('get_purchases/0') }}" class="text-muted text-decoration-none">view category</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+
+
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                        <span class="text-c-blue f-w-600">Total Product</span>
+                                                        <h4>{{ $total_product }}</h4>
+                                                      
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i><a href="{{ url('/get_products') }}" class="text-muted text-decoration-none">view category</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+
+                                            
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card widget-card-1">
+                                                    <div class="card-block-small">
+                                                        <i class="icofont icofont-pie-chart bg-c-blue card1-icon"></i>
+                                                        <span class="text-c-blue f-w-600">Low Stock Products</span>
+                                                        <h4>{{ $low_stock }}</h4>
+                                                      
+                                                        <div>
+                                                            <span class="f-left m-t-10 text-muted">
+                                                                <i class="text-c-blue f-16 icofont icofont-warning m-r-10"></i><a href="{{ url('/get_products') }}" class="text-muted text-decoration-none">view category</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+
+
                                             <!-- card1 start -->
                                             <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">

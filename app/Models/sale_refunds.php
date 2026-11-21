@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\saleProductListMaster;
 
 class sale_refunds extends Model
 {
@@ -17,4 +18,11 @@ class sale_refunds extends Model
         'refund_reason',
         'processed_at',
     ];
+
+    // Refund belongs to a sale
+     
+     public function sale()
+     {
+         return $this->belongsTo(SalesMaster::class, 'sale_id', 'id');
+     }
 }

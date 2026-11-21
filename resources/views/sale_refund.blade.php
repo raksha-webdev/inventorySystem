@@ -333,6 +333,58 @@
             padding: 14px 17px;
         }
     }
+
+    .refund-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.refund-action-btn {
+    height: 34px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* View Button */
+.view-refund-btn {
+    background: #e8f1ff;
+    color: #2563eb;
+}
+
+.view-refund-btn:hover {
+    background: #2563eb;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Process Refund Button */
+.process-refund-btn {
+    background: #fff0e6;
+    color: #d96636;
+}
+
+.process-refund-btn:hover {
+    background: #d96636;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.refund-action-btn i {
+    font-size: 13px;
+}
 </style>
 
 <div class="refund-page">
@@ -503,9 +555,26 @@
                             </td>
 
                             <td>
-                                <a href="{{ url('view_sale/'.$refund->id) }}" class="btn btn-sm btn-info">View</a>
-                                <button class="btn btn-sm btn-secondary">Process Refund</button>
-                            </td>
+    <div class="refund-actions">
+
+        <!-- View Button -->
+        <a href="{{ url('view_refund/' . $refund->id) }}"
+           class="refund-action-btn view-refund-btn"
+           title="View Sale Details">
+            <i class="fa fa-eye"></i>
+            <span>View</span>
+        </a>
+
+        <!-- Process Refund Button -->
+        <button type="button"
+                class="refund-action-btn process-refund-btn"
+                title="Process Refund">
+            <i class="fa fa-refresh"></i>
+            <span>Process Refund</span>
+        </button>
+
+    </div>
+</td>
                         </tr>
 
                     @empty

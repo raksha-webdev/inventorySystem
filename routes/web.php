@@ -65,6 +65,7 @@ Route::get('get_customer_sales/{id?}',[AdminController::class,'get_customer_sale
 
 
 Route::get('sale_refunds',[AdminController::class,'sale_refunds'])->name('sale_refunds');
+Route::get('view_refund/{refund_id?}',[AdminController::class,'view_refund'])->name('view_refund');
 Route::post('cancel_sale/{table}/{sale_id}',[AdminController::class,'cancel_sale'])->name('cancel_sale');
 
 Route::get('logout',[AdminController::class, 'logout'])->name('logout');
@@ -109,3 +110,27 @@ Route::get('/check-db-connection', function () {
     }
 
 });
+
+
+
+Route::get('active_deactive_status/{id}/{table}/{column}/{status}',
+function ($id, $table, $column, $status) {
+
+    if (empty($id) || empty($table) || empty($column)) {
+        return redirect()->back()->with('error', 'Invalid parameters!');
+    }
+
+    $updated = DB::table($table)
+        ->where('id', $id)
+        ->update([
+            $column => $status
+        ]);
+
+    if ($updated) {
+        return redirect()->back()->with('success', 'Status updated successfully!');
+    }
+
+    return redirect()->back()->with('error', 'No changes detected!');
+}
+);
+

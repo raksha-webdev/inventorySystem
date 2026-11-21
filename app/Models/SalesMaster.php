@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SalesProductListMaster;
 
 class SalesMaster extends Model
 {
@@ -38,6 +39,15 @@ class SalesMaster extends Model
     return $this->belongsTo(Customer::class, 'customer_id');
 }
 
+
+public function items()
+{
+    return $this->hasMany(
+        SalesProductListMaster::class,
+        'sale_id',
+        'id'
+    );
+}
 
 }
 

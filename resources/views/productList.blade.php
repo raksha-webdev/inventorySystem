@@ -2,6 +2,51 @@
 
 @section('content')
 
+<style>
+    .switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 23px;
+    margin: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #dc3545;
+    transition: 0.3s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #198754;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+</style>
+
 <div class="main-body">
     <div class="page-wrapper">
 
@@ -136,7 +181,7 @@
 <!-- CATEGORY -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Category
+        Category <span class="text-danger">*</span>  
     </label>
 
     <div class="col-sm-10">
@@ -162,8 +207,8 @@
 <!-- SUPPLIER -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Supplier
-    </label>
+        Supplier <span class="text-danger">*</span> 
+    </label> 
 
     <div class="col-sm-10">
         <select name="supplier_id" class="form-control" required>
@@ -184,7 +229,7 @@
 <!-- Brand id -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Brand
+        Brand <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -203,7 +248,8 @@
 <!-- PRODUCT NAME -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Product Name
+        Product Name 
+        <span class="text-danger">*</span>
     </label>
 
     <div class="col-sm-10">
@@ -220,7 +266,7 @@
 <!-- SKU -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        SKU
+        SKU <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -267,7 +313,7 @@
 <!-- PURCHASE PRICE -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Purchase Price
+        Purchase Price <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -285,7 +331,7 @@
 <!-- SELLING PRICE -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Selling Price
+        Selling Price <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -303,7 +349,7 @@
 <!-- STOCK QUANTITY -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Stock Quantity
+        Stock Quantity <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -320,7 +366,7 @@
 <!-- MINIMUM STOCK -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Minimum Stock
+        Minimum Stock <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -337,7 +383,7 @@
 <!-- UNIT -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Unit
+        Unit <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
@@ -368,6 +414,15 @@
                name="product_image"
                class="form-control"
                accept="image/jpeg,image/png,image/webp">
+
+               @if(!empty($product_data_single->product_image))
+<img src="{{ asset('assests_uploads/product_image/' . $product_data_single->product_image) }}"
+     width="60"
+     height="60"
+     style="object-fit: cover;">
+@else
+N/A
+@endif
     </div>
 </div>
 
@@ -375,13 +430,12 @@
 <!-- STATUS -->
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">
-        Status
+        Status <span class="text-danger">*</span> 
     </label>
 
     <div class="col-sm-10">
         <select name="status" class="form-control" required>
             <option value="">Select</option>
-
             <option value="1"
                 {{ old('status', isset($product_data_single) ? $product_data_single->status : '') == '1' ? 'selected' : '' }}>
                 Active
@@ -404,13 +458,11 @@
         <button type="submit"
                 class="btn btn-primary"
                 id="productFormSubmitBtn">
-
             @if(isset($product_data_single) && $product_data_single)
                 Update
             @else
                 Add
             @endif
-
         </button>
 
         <button type="button"
@@ -645,25 +697,21 @@
 
 
                     <!-- STATUS -->
+                    
                     <td>
+    <label class="switch">
+        <input type="checkbox"
+            {{ $product->status == '1' ? 'checked' : '' }}
+            onchange="active_deactive_status(
+                {{ $product->id }},
+                'product',
+                'status',
+                this.checked ? 1 : 0
+            )">
 
-                        @if($product->status == '1')
-
-                            <span class="status-badge status-active">
-                                <i class="fa fa-circle"></i>
-                                Active
-                            </span>
-
-                        @else
-
-                            <span class="status-badge status-inactive">
-                                <i class="fa fa-circle"></i>
-                                Deactive
-                            </span>
-
-                        @endif
-
-                    </td>
+        <span class="slider"></span>
+    </label>
+</td>
 
 
                     <!-- CREATED AT -->
@@ -769,4 +817,14 @@
 
 </script>
 
+
+<script>
+    function active_deactive_status(id, table, column, status) {
+if (confirm('Are you sure you want to change the status?')) {
+    window.location.href =
+        "{{ url('active_deactive_status') }}/" +
+        id + "/" + table + "/" + column + "/" + status;
+}
+}
+</script>
 @endsection
