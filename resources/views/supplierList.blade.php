@@ -142,9 +142,7 @@
                 <div class="col-lg-8">
 
                     <div class="page-header-title">
-
-                        <i class="feather icon-users bg-c-blue"></i>
-
+                    <i class="fa-solid fa-truck-field bg-c-blue"></i>
                         <div class="d-inline">
 
                             <h5>Supplier Management</h5>
@@ -192,7 +190,7 @@
 
 
         <!-- ================= SUCCESS MESSAGE ================= -->
-
+<!-- 
         @if(session('success'))
 
             <div class="alert alert-success">
@@ -201,12 +199,12 @@
 
             </div>
 
-        @endif
+        @endif -->
 
 
         <!-- ================= ERROR MESSAGE ================= -->
 
-        @if(session('error'))
+        <!-- @if(session('error'))
 
             <div class="alert alert-danger">
 
@@ -214,7 +212,7 @@
 
             </div>
 
-        @endif
+        @endif -->
 
 
         <!-- ================= VALIDATION ERRORS ================= -->

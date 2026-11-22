@@ -14,6 +14,7 @@ use App\Models\stock_log_master;
 use App\Models\subcategory;
 use App\Models\Supplier;
 use App\Models\User;
+use App\Models\user_details;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
@@ -39,7 +40,7 @@ public function dashboard()
 
     $product = product::count();
 
-    $user = User::count();
+    $user = user_details::count();
 
     // Total Completed / Active Sales Count
     $sale = SalesMaster::where('status', 1)->count();
@@ -1707,12 +1708,13 @@ public function get_products($id = null)
 {
     // Search text
     $search_text = request('search_text');
+    
 
     // Product query
     $product_query = Product::with([
         'category',
         'supplier',
-        'brand'
+        'brand',
     ]);
 
     // Agar search text diya gaya hai
@@ -1728,16 +1730,20 @@ public function get_products($id = null)
     
                   ->orWhereHas('supplier', function ($q) use ($search_text) {
                       $q->where('supplier_name', 'LIKE', '%' . $search_text . '%');
-                  });
-    
+                  })
+
+                  ->orWhereHas('brand', function ($q) use ($search_text) {
+                    $q->where('name', 'LIKE', '%' . $search_text . '%');
+                });
         });
     }
-
+    
     // Products get
     $product_data = $product_query
         ->orderBy('id', 'desc')
         ->get();
 
+        // dd($product_data);
     // Category
     $cat_data = category::where('status', 1)->get();
 

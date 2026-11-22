@@ -57,8 +57,7 @@ input:checked + .slider:before {
 
             <div class="col-lg-8">
                 <div class="page-header-title">
-                    <i class="icofont icofont-file-code bg-c-blue"></i>
-
+                <i class="fa-solid fa-boxes-stacked card1-icon icon-products bg-c-blue"></i>
                     <div class="d-inline">
                         <h4>Product List</h4>
                     </div>
@@ -103,18 +102,18 @@ input:checked + .slider:before {
             <div class="col-sm-12">
 
                 <!-- Success message -->
-                @if(session('success'))
+                <!-- @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
                     </div>
-                @endif
+                @endif -->
 
                 <!-- Error message -->
-                @if(session('error'))
+                <!-- @if(session('error'))
                     <div class="alert alert-danger">
                         {{ session('error') }}
                     </div>
-                @endif
+                @endif -->
 
                 <!-- Validation errors -->
                 @if($errors->any())
@@ -508,8 +507,6 @@ N/A
         <p>Manage all your products</p>
     </div>
 
-
-
     <div style="display: flex; align-items: center; gap: 10px;"> 
         <!-- Search --> 
          <div style="display: flex; align-items: center;">
@@ -550,7 +547,7 @@ N/A
         <thead>
             <tr>
 
-                <th>#</th>
+                <th>Sno.</th>
 
                 <th>ID</th>
 

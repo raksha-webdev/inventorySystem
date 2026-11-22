@@ -29,6 +29,8 @@
       <link rel="stylesheet" type="text/css" href="{{ asset('assets/icon/themify-icons/themify-icons.css') }}">
       <!-- ico font -->
       <link rel="stylesheet" type="text/css" href="{{ asset('assets/icon/icofont/css/icofont.css') }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
       <!-- Style.css -->
       <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
       <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/jquery.mCustomScrollbar.css') }}">
@@ -247,11 +249,13 @@
                                            'Unknown'
                                          @endif
                                         </span>
-                                        <span id="more-details">Admin Panel<i class="ti-angle-down"></i></span>
+                                        <span id="more-details">Admin Panel
+                                            <!-- <i class="ti-angle-down"></i> -->
+                                        </span>
                                     </div>
                                 </div>
 
-                                <div class="main-menu-content">
+                                <!-- <div class="main-menu-content">
                                     <ul>
                                         <li class="more-details">
                                             <a href="#"><i class="ti-user"></i>View Profile</a>
@@ -259,7 +263,7 @@
                                             <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- <div class="pcoded-search">
                                 <span class="searchbar-toggle">  </span>

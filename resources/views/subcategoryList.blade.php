@@ -12,7 +12,7 @@
 
             <div class="col-lg-8">
                 <div class="page-header-title">
-                    <i class="icofont icofont-file-code bg-c-blue"></i>
+                    <i class="fa-solid fa-list-ul bg-c-blue"></i>
 
                     <div class="d-inline">
                         <h4>Sub Category List</h4>
@@ -447,10 +447,7 @@
                                         <td>
 
                                             <div class="action-buttons">
-
-
                                                 <!-- EDIT -->
-
                                                 <button type="button"
                                                         class="action-btn edit-btn"
                                                         title="Edit Sub Category"

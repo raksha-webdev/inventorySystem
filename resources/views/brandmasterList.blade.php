@@ -12,8 +12,7 @@
 
                 <div class="col-lg-8">
                     <div class="page-header-title">
-                        <i class="icofont icofont-brand bg-c-blue"></i>
-
+                    <i class="fa-solid fa-folder-tree bg-c-blue"></i>
                         <div class="d-inline">
                             <h4>Brand List</h4>
                         </div>
@@ -97,31 +96,16 @@
                     <div class="card">
 
                         <div
-                            class="toggle-panel @if(isset($brand_id) && $brand_id != '0' && isset($brand_data_single)) open @endif"
-                            id="brandFormPanel"
-                        >
-
+                            class="toggle-panel @if(isset($brand_id) && $brand_id != '0' && isset($brand_data_single)) open @endif"  id="brandFormPanel">
                             <div class="toggle-form-inner">
-
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-
-                                    <h4
-                                        class="sub-title"
-                                        id="brandFormTitle"
-                                    >
-
+                                    <h4 class="sub-title"   id="brandFormTitle">
                                         @if(isset($brand_id) && $brand_id != '0' && isset($brand_data_single))
-
                                             Update Brand
-
                                         @else
-
                                             Add Brand
-
                                         @endif
-
                                     </h4>
-
                                     <button
                                         type="button"
                                         class="btn-close-form"

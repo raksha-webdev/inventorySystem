@@ -56,26 +56,15 @@
         <!-- ============================================= -->
 
         <div class="page-header card">
-
             <div class="row align-items-end">
-
                 <div class="col-lg-8">
-
                     <div class="page-header-title">
-
-                        <i class="icofont icofont-stock bg-c-blue"></i>
-
+                    <i class="fa-solid fa-warehouse bg-c-blue"></i>
                         <div class="d-inline">
-
                             <h4>Stock List</h4>
-
-                        </div>
-
+                       </div>
                     </div>
-
                 </div>
-
-
                 <div class="col-lg-4">
 
                     <div class="page-header-breadcrumb">
