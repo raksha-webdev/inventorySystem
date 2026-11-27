@@ -211,7 +211,7 @@
                                             <!-- card1 end -->
                                             <!-- card1 start -->
                                              
-                                            <div class="col-md-6 col-xl-3">
+                                            <!-- <div class="col-md-6 col-xl-3">
                                                 <div class="card widget-card-1">
                                                     <div class="card-block-small">
                                                     <i class="fa-solid fa-users card1-icon icon-users"></i>
@@ -225,7 +225,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <!-- card1 end -->
                                             
                                             </div>

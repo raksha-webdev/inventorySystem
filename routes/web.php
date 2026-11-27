@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FirebaseNotificationController;
 
 
 Route::middleware(['admin.auth'])->group(function () {
@@ -73,6 +74,13 @@ Route::get('logout',[AdminController::class, 'logout'])->name('logout');
 Route::post('logged_in',[AdminController::class, 'logged_in'])->name('logged_in');
 Route::get('admin_login',[AdminController::class, 'admin_login'])->name('admin_login');
 Route::get('branddata/',[AdminController::class, 'branddata']);
+
+// notification route
+
+Route::post('/save-device-token', [FirebaseNotificationController::class, 'saveDeviceToken'])
+    ->name('firebase.save.token');
+
+
 
 // Route::post('/get_category', [API_Controller::class, 'get_category']);
 // Route::post('/add_category', [API_Controller::class, 'add_category']);

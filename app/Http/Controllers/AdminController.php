@@ -33,7 +33,6 @@ class AdminController extends Controller
 public function dashboard()
 {
     $catgory_count = Category::count();
-
     $sub_category_count = subcategory::count();
 
     $supplier = Supplier::count();
@@ -2682,6 +2681,11 @@ public function view_refund($refund_id)
 
     return view('refund_detail', compact('refund', 'sale'));
 }
+
+
+
+
+
 
 
 

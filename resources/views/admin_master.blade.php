@@ -16,9 +16,11 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
       <meta name="description" content="CodedThemes">
       <meta name="keywords" content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
       <meta name="author" content="CodedThemes">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <!-- Favicon icon -->
       <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
       <!-- Google font-->   
@@ -188,6 +190,11 @@
                                     </li>
                                 </ul>
                             </li> -->
+                            <li>
+                            <button type="button" id="enableNotifications" class="btn btn-primary" style="margin-top: 10px; margin-right: 10px;">
+    Enable Notifications
+</button>
+                            </li>
                             <li class="user-profile header-notification">
                                 <a href="#!">
                                 <img class="img-40 img-radius" src="{{ asset('assests_uploads\profileavtar(1).jpg') }}" alt="User-Profile-Image">
@@ -490,6 +497,16 @@ var nav = $('.fixed-button');
 
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-messaging-compat.js"></script>
+
+<!-- Your Firebase JS -->
+<script src="{{ asset('assets/js/firebase-messaging.js') }}"></script>
+
 
 @if(session('success'))
 
